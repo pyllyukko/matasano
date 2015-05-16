@@ -5,3 +5,7 @@ wget -nv -O 06-hamming_distance/06.txt	https://gist.githubusercontent.com/tqbf/3
 wget -nv -O 07/07.txt			https://gist.githubusercontent.com/tqbf/3132853/raw/c02ff8a08ccf872f4cd278396379f4bb1ef337d8/gistfile1.txt
 wget -nv -O 08/08.txt			https://gist.githubusercontent.com/tqbf/3132928/raw/6f74d4131d02dee3dd0766bd99a6b46c965491cc/gistfile1.txt
 wget -nv -O 10-cbc/10.txt		https://gist.githubusercontent.com/tqbf/3132976/raw/f0802a5bc9ffa2a69cd92c981438399d4ce1b8e4/gistfile1.txt
+
+ln -sv ../12-ecb_decrypt/12.txt 14-ecb_decrypt/12.txt
+
+# 20 = https://gist.github.com/3336141
