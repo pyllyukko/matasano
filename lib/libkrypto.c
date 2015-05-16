@@ -428,7 +428,7 @@ int aes_encrypt_cbc(char *plaintext, char *ciphertext, int plaintext_length, cha
   // TODO: this is useful in some levels, but at least not in 12 (and maybe 14)
   printf("\naes_encrypt_cbc(): encrypting %d bytes with %d bit key, padding=%d, ciphertext length=%d\n",
          plaintext_length, keysize*8, padding, plaintext_length+padding);
-  // i = block
+  // i = block offset
   for(i=0; i<plaintext_length+padding; i+=keysize)
   {
     if(i<keysize)
