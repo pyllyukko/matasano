@@ -727,7 +727,6 @@ int mt19937_initialize_generator(int seed)
 {
   int i;
 
-  printf("initialize_generator()\n");
   for(i=1, mt[0]=seed; i<624; i++)
   {
     mt[i] = 1812433253 * ( mt[i-1] ^ ( mt[i-1] >> 30 ) ) + i;
