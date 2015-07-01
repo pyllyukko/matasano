@@ -3,6 +3,7 @@
 #include <openssl/evp.h>	// -- || --
 #include <openssl/aes.h>
 #include "hacking.h"
+#include "libkrypto.h"
 
 #define ECB_MODE 0
 #define CBC_MODE 1
