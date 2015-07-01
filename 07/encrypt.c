@@ -15,9 +15,6 @@ int main(void)
   aes_encrypt_ecb(plaintext, ciphertext, strlen(plaintext), (char *)key, strlen(key));
   dump(ciphertext, strlen(key));
 
-  aes_encrypt_cbc(plaintext, ciphertext, strlen(plaintext), (char *)key, (char *)iv, strlen(key));
-  dump(ciphertext, strlen(key)*4);
-
   base64_encode("Hello World \n", stdout);
 
   srand(time(0));
