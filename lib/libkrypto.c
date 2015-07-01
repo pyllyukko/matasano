@@ -715,3 +715,56 @@ int crack_ecb2(char *random_prefix, int random_length, int block_size, char *dec
 
   return decrypt_counter-1;
 } // int crack_ecb2()
+
+/*
+ * mersenne twister functions
+ *
+ */
+
+unsigned int _mt19937_index = 0, mt[624];
+
+int mt19937_initialize_generator(int seed)
+{
+  int i;
+
+  printf("initialize_generator()\n");
+  for(i=1, mt[0]=seed; i<624; i++)
+  {
+    mt[i] = 1812433253 * ( mt[i-1] ^ ( mt[i-1] >> 30 ) ) + i;
+  }
+}
+
+unsigned int mt19937_extract_number(void)
+{
+  unsigned long y;
+
+  if(_mt19937_index==0)
+  {
+    mt19937_generate_numbers();
+  }
+
+  y = mt[_mt19937_index];
+  y ^= (y >> 11);
+  y ^= (y << 7)		& 2636928640;
+  y ^= (y << 15)	& 4022730752;
+  y ^= (y >> 18);
+
+  _mt19937_index = (_mt19937_index + 1) % 624;
+
+  return y;
+}
+
+int mt19937_generate_numbers(void)
+{
+  unsigned int i, y;
+
+  for(i=0; i<624; i++)
+  {
+    y = ( mt[i] & 0x80000000 ) + ( mt[(i+1) % 624] & 0x7fffffff );
+    mt[i] = mt[(i + 397) % 624] ^ (y >> 1);
+    if(y % 2 != 0) // y is odd
+    {
+      mt[i] = mt[i] ^ 2567483615; // 0x9908b0df
+    }
+  }
+}
