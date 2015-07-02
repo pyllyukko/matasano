@@ -46,4 +46,5 @@ int main(void)
     printf(".");
   }
   printf("test succeeded\n");
+  return 0;
 }

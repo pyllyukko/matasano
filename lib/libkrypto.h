@@ -20,6 +20,9 @@ extern int guess_ecb_blocksize(char *ciphertext, int ciphertext_length, int *blo
 extern int crack_ecb2(char *random_prefix, int random_length, int block_size, char *decrypted, int first_block, int last_block, int alignment);
 
 extern unsigned int _mt19937_index, mt[624];
+extern int mt19937_initialize_generator(int seed);
+extern unsigned int mt19937_extract_number(void);
+extern int mt19937_generate_numbers(void);
 
 /*
 typedef struct
