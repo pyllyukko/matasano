@@ -1,5 +1,5 @@
 /*
- * chosen-plaintext attack for the matasano challenge #12
+ * chosen-plaintext attack for the matasano challenge #14
  *
  */
 #include <string.h>
