@@ -3,6 +3,7 @@
 #include <openssl/bio.h>
 #include <openssl/evp.h>
 #include "../lib/libkrypto.h"
+#include "../lib/hacking.h"
 
 int main(void)
 {
