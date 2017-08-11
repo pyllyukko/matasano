@@ -4,6 +4,7 @@
  */
 #include <string.h>
 #include "../lib/libkrypto.h"
+#include "../lib/hacking.h"
 
 int main(void)
 {

@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include "../lib/libkrypto.h"
+#include "../lib/hacking.h"
 
 char
     ciphertext[1024],

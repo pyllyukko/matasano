@@ -38,6 +38,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../lib/libkrypto.h"
+#include "../lib/hacking.h"
 
 unsigned char key[16];
 

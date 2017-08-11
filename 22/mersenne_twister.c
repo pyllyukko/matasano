@@ -1,6 +1,9 @@
 // https://en.wikipedia.org/wiki/Mersenne_twister#Pseudocode
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
 #include "../lib/libkrypto.h"
 
 int main(void)

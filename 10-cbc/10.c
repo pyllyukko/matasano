@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../lib/libkrypto.h"
+#include "../lib/hacking.h"
 
 static const unsigned char key[] = "YELLOW SUBMARINE";
 static const unsigned char iv[] = "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
