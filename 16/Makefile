@@ -1,7 +1,7 @@
 default: static
 
-static:
+static: ../lib/libkrypto.a
 	gcc --static -g -L../lib -L/usr/lib -o 16 16.c -lkrypto -lcrypto
 
-dynamic:
+dynamic: ../lib/libkrypto.so
 	gcc -I. -L../lib -o 16 16.c -lkrypto -lcrypto

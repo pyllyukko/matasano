@@ -1,18 +1,32 @@
-LIST = 03 04
-all:
-	for i in $(LIST); do \
-		gcc $$i/$$i.c -o $$i/$$i; \
-	done
-	+$(MAKE) -C 05
-	+$(MAKE) -C lib
-	+$(MAKE) -C 07
-	+$(MAKE) -C 09-padding
-	+$(MAKE) -C 10-cbc
-	+$(MAKE) -C 11-ecb_detect
-	+$(MAKE) -C 12-ecb_decrypt
-	+$(MAKE) -C 13
-	+$(MAKE) -C 14-ecb_decrypt
-	+$(MAKE) -C 15-padding
-	+$(MAKE) -C 16
-	+$(MAKE) -C 21-mersenne_twister
-	+$(MAKE) -C 22
+SUBDIRS = 03 04 05 06-hamming_distance lib 07 09-padding 10-cbc 11-ecb_detect 12-ecb_decrypt 13 14-ecb_decrypt 15-padding 16 21-mersenne_twister 22
+
+.PHONY: subdirs $(SUBDIRS)
+
+subdirs: $(SUBDIRS)
+
+$(SUBDIRS):
+	$(MAKE) -C $@
+
+06-hamming_distance: lib
+
+07: lib
+
+09-padding: lib
+
+10-cbc: lib
+
+11-ecb_detect: lib
+
+12-ecb_decrypt: lib
+
+13: lib
+
+14-ecb_decrypt: lib
+
+15-padding: lib
+
+16: lib
+
+21-mersenne_twister: lib
+
+22: lib
