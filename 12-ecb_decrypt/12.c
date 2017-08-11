@@ -43,5 +43,5 @@ int main(void)
   printf("\ndecrypted=%d\n\n", decrypt_counter);
   dump(decrypted, decrypt_counter);
 
-  return;
+  return 0;
 }
