@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "../lib/libkrypto.h"
+#include "../lib/hacking.h"
 
 /*
  * matasano 9. Implement PKCS#7 padding
