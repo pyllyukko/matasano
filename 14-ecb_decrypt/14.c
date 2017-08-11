@@ -70,5 +70,5 @@ int main(void)
 
   printf("\nDEBUG:\n  random_length=%d\n  plaintext=%d (%d blocks)\n  ciphertext_length=%d\n  padding=%d\n", random_length, ciphertext_length-padding-block_size-random_length, (ciphertext_length-padding-block_size-random_length)/block_size, ciphertext_length, padding);
 
-  return;
+  return 0;
 }
