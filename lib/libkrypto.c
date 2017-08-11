@@ -2,6 +2,7 @@
 #include <openssl/bio.h>	// for base64 decode
 #include <openssl/evp.h>	// -- || --
 #include <openssl/aes.h>
+#include <string.h>
 #include "hacking.h"
 #include "libkrypto.h"
 
