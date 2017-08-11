@@ -10,6 +10,7 @@
 #include <string.h>
 //#include <openssl/aes.h>
 #include "../lib/libkrypto.h"
+#include "../lib/hacking.h"
 
 static const unsigned char key[] = "YELLOW SUBMARINE";
 
