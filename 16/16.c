@@ -75,6 +75,7 @@ int main(void)
   randomize_key(key, 16);
   randomize_key(iv, 16);
 
+  memset(userdata, 0, sizeof(userdata));
   strncpy(userdata, ";admin=true", strlen(";admin=true"));
   printf("adversary: trying \"%s\":\n", userdata);
   length = first_function(userdata, ciphertext);
