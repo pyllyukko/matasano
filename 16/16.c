@@ -3,6 +3,9 @@
 #include "../lib/libkrypto.h"
 #include "../lib/hacking.h"
 
+#define ANSI_COLOR_RED     "\x1b[1;31m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 char
   ciphertext[1024],
   key[16],
@@ -75,12 +78,13 @@ int main(void)
 
   memset(userdata, 0, sizeof(userdata));
   strncpy(userdata, ";admin=true", strlen(";admin=true"));
-  printf("adversary: trying \"%s\":\n", userdata);
+  printf(ANSI_COLOR_RED "adversary: trying \"%s\":\n" ANSI_COLOR_RESET, userdata);
   length = first_function(userdata, ciphertext);
 
   strncpy(userdata, "XadminXtrue", strlen(";admin=true"));
-  printf("adversary: trying \"%s\":\n", userdata);
+  printf(ANSI_COLOR_RED "adversary: trying \"%s\":\n" ANSI_COLOR_RESET, userdata);
   length = first_function(userdata, ciphertext);
+  printf(ANSI_COLOR_RED "adversary: modifying ciphertext\n" ANSI_COLOR_RESET);
   *(ciphertext+16) ^= 'X' ^ ';';
   *(ciphertext+22) ^= 'X' ^ '=';
   printf("\n\nciphertext:\n");
