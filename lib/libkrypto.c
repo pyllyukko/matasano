@@ -50,7 +50,7 @@ int padding_detect(char *ptr, int strlen, int blocksize)
    */
   if(padding>blocksize)
   {
-    printf("padding_detect(): INVALID PADDING: padding=%d > blocksize=%d\n", padding, blocksize);
+    printf("padding_detect(): " ANSI_COLOR_RED "INVALID PADDING" ANSI_COLOR_RESET ": padding=%d > blocksize=%d\n", padding, blocksize);
     return -1;
   }
 
@@ -69,11 +69,11 @@ int padding_detect(char *ptr, int strlen, int blocksize)
 
     if(*(ptr+i)!=padding)
     {
-      printf("padding_detect(): INVALID PADDING!\n");
+      printf("padding_detect(): " ANSI_COLOR_RED "INVALID PADDING" ANSI_COLOR_RESET "!\n");
       return -1;
     }
   }
-  printf("  valid padding\n");
+  printf("  " ANSI_COLOR_GREEN "valid padding\n" ANSI_COLOR_RESET);
   return padding;
 }
 

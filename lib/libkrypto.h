@@ -1,5 +1,9 @@
 #include <stdio.h>
 
+#define ANSI_COLOR_RED     "\x1b[1;31m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+#define ANSI_COLOR_GREEN   "\x1b[1;32m"
+
 extern int pad(unsigned char *ptr, int length, int blocksize);
 extern int padding_detect(char *ptr, int strlen, int blocksize);
 extern int base64_decode(FILE *fp, char *ptr, int buflen);
