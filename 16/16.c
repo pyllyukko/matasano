@@ -30,7 +30,7 @@ int first_function(char *userdata, char *ciphertext)
   }
 
   // clear userdata2
-  memset(userdata2, 0, 1024);
+  memset(userdata2, 0, sizeof(userdata2));
   strncpy(userdata2, (char *)"comment1=cooking%20MCs;userdata=", strlen("comment1=cooking%20MCs;userdata="));
   strncat(userdata2, userdata, strlen(userdata));
   strncat(userdata2, (char *)";comment2=%20like%20a%20pound%20of%20bacon", strlen(";comment2=%20like%20a%20pound%20of%20bacon"));
