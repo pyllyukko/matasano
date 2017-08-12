@@ -5,7 +5,7 @@
 #include "../lib/libkrypto.h"
 #include "../lib/hacking.h"
 
-int main(void)
+int main(int argc, char *argv[])
 {
   char str1[] = "this is a test";
   char str2[] = "wokka wokka!!!";
@@ -28,6 +28,11 @@ int main(void)
     ciphertext_sample[2048];
   FILE *fp;
 
+  if (argc != 2) {
+    printf("usage: %s filename\n", argv[0]);
+    return 1;
+  }
+
   if(strlen(str1)!=strlen(str2))
   {
     printf("error: strings are of unequal size!\n");
@@ -35,8 +40,7 @@ int main(void)
   hamming_distance = calculate_hamming_distance_of_string(str1, str2, strlen(str1));
   printf("hamming distance test: %d\n\n", hamming_distance);
 
-  fp = fopen("./06.txt", "r");
-  //fp = fopen("./tanelin_viesti.txt", "r");
+  fp = fopen(argv[1], "r");
   if(fp == NULL)
   {
     perror("Error while opening the file.\n");
