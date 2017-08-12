@@ -1,4 +1,4 @@
-default: static
+.PHONY: static dynamic
 
 static: ../lib/libkrypto.a
 	gcc --static -g -L../lib -L/usr/lib -o 13 13.c -lkrypto -lcrypto
