@@ -8,11 +8,8 @@ all: $(bins)
 clean:
 	-rm -f $(bins) $(libdir)/*.{[oa],so}
 
-$(libdir)/libkrypto.o: $(libdir)/libkrypto.c $(libdir)/libkrypto.h
-	gcc -c -fpic $(@D)/libkrypto.c -o $@
-
-$(libdir)/hacking.o: $(libdir)/hacking.c $(libdir)/hacking.h
-	gcc -c -fpic $(@D)/hacking.c -o $@ -Wall
+$(libdir)/%.o: $(libdir)/%.c $(libdir)/%.h
+	gcc -c -fpic $< -o $@
 
 $(libdir)/libkrypto.a: $(libdir)/libkrypto.o $(libdir)/hacking.o
 	ar rs $(@D)/libkrypto.a $(@D)/libkrypto.o $(@D)/hacking.o
