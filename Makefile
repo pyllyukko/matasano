@@ -12,19 +12,19 @@ $(libdir)/libkrypto.o: $(libdir)/libkrypto.c $(libdir)/libkrypto.h
 	gcc -c -fpic $(@D)/libkrypto.c -o $@
 
 $(libdir)/hacking.o: $(libdir)/hacking.c $(libdir)/hacking.h
-	gcc -c -fpic $(@D)/hacking.c -o $@
+	gcc -c -fpic $(@D)/hacking.c -o $@ -Wall
 
 $(libdir)/libkrypto.a: $(libdir)/libkrypto.o $(libdir)/hacking.o
 	ar rs $(@D)/libkrypto.a $(@D)/libkrypto.o $(@D)/hacking.o
 
 $(libdir)/libkrypto.so: $(libdir)/libkrypto.o $(libdir)/hacking.o
-	gcc -shared -o $@ $(@D)/libkrypto.o $(@D)/hacking.o -lcrypto
+	gcc -shared -o $@ $(@D)/libkrypto.o $(@D)/hacking.o -lcrypto -Wall
 
 1-03/03: 1-03/03.c
 	gcc $< -o $@
 
 1-04/04: 1-04/04.c
-	gcc $< -o $@
+	gcc $< -o $@ -Wall
 
 1-04/04.txt:
 	wget -nv -O $@ https://gist.githubusercontent.com/tqbf/3132713/raw/40da378d42026a0731ee1cd0b2bd50f66aabac5b/gistfile1.txt
@@ -78,7 +78,7 @@ $(libdir)/libkrypto.so: $(libdir)/libkrypto.o $(libdir)/hacking.o
 	ln -sv ../2-12-ecb_decrypt/$(@F) $@
 
 2-15-padding/15: 2-15-padding/15.c $(libdir)/libkrypto.a
-	gcc --static -L$(libdir) -o $@ $< -lkrypto -lcrypto
+	gcc --static -L$(libdir) -o $@ $< -lkrypto -lcrypto -Wall
 
 2-16/16: 2-16/16.c $(libdir)/libkrypto.so
 	gcc -L$(libdir) -o $@ $< -lkrypto -lcrypto -Wl,-rpath='$$ORIGIN/../$(libdir)'
@@ -87,4 +87,4 @@ $(libdir)/libkrypto.so: $(libdir)/libkrypto.o $(libdir)/hacking.o
 	gcc -L$(libdir) -o $@ $< -lkrypto -lcrypto -Wl,-rpath='$$ORIGIN/../$(libdir)' -Wall
 
 3-22/mersenne_twister: 3-22/mersenne_twister.c $(libdir)/libkrypto.so
-	gcc -L$(libdir) -o $@ $< -lkrypto -lcrypto -Wl,-rpath='$$ORIGIN/../$(libdir)'
+	gcc -L$(libdir) -o $@ $< -lkrypto -lcrypto -Wl,-rpath='$$ORIGIN/../$(libdir)' -Wall
