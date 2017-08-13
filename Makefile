@@ -12,7 +12,7 @@ $(libdir)/%.o: $(libdir)/%.c $(libdir)/%.h
 	gcc -c -fpic $< -o $@
 
 $(libdir)/libkrypto.a: $(libdir)/libkrypto.o $(libdir)/hacking.o
-	ar rs $(@D)/libkrypto.a $(@D)/libkrypto.o $(@D)/hacking.o
+	ar rs $@ $(@D)/libkrypto.o $(@D)/hacking.o
 
 $(libdir)/libkrypto.so: $(libdir)/libkrypto.o $(libdir)/hacking.o
 	gcc -shared -o $@ $(@D)/libkrypto.o $(@D)/hacking.o -lcrypto -Wall
