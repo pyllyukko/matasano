@@ -20,7 +20,7 @@ $(libdir)/libkrypto.a: $(libdir)/libkrypto.o $(libdir)/hacking.o
 $(libdir)/libkrypto.so: $(libdir)/libkrypto.o $(libdir)/hacking.o
 	gcc -shared -o $@ $(@D)/libkrypto.o $(@D)/hacking.o -lcrypto -Wall
 
-1-03/03: 1-03/03.c
+1-03/03 1-05/vigenere: %: %.c
 	gcc $< -o $@
 
 1-04/04 1-05/05: %: %.c
@@ -28,9 +28,6 @@ $(libdir)/libkrypto.so: $(libdir)/libkrypto.o $(libdir)/hacking.o
 
 1-04/04.txt:
 	wget -nv -O $@ https://gist.githubusercontent.com/tqbf/3132713/raw/40da378d42026a0731ee1cd0b2bd50f66aabac5b/gistfile1.txt
-
-1-05/vigenere: 1-05/vigenere.c
-	gcc $< -o $@
 
 1-06-hamming_distance/06.txt:
 	wget -nv -O $@ https://gist.githubusercontent.com/tqbf/3132752/raw/cecdb818e3ee4f5dda6f0847bfd90a83edb87e73/gistfile1.txt
