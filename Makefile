@@ -1,3 +1,4 @@
+SHELL=/bin/bash
 libdir=lib
 bins=1-03/03 1-04/04 1-05/vigenere 1-05/05 1-06-hamming_distance/06 1-07/07 1-07/encrypt 2-09-padding/09 2-10-cbc/10 2-11-ecb_detect/11 2-12-ecb_decrypt/12 2-13/13 2-14-ecb_decrypt/14 2-15-padding/15 2-16/16 3-21-mersenne_twister/mersenne_twister 3-22/mersenne_twister
 kbins=1-06-hamming_distance/06 1-07/07 1-07/encrypt 2-09-padding/09 2-10-cbc/10 2-11-ecb_detect/11 2-12-ecb_decrypt/12 2-13/13 2-14-ecb_decrypt/14 2-16/16
