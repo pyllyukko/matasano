@@ -19,11 +19,11 @@ int main(void)
   // fill chosen_plaintext with A's to get matching ECB blocks
   memset(chosen_plaintext, 'A', 43);
   // run the oracle to determine the block size
-  ciphertext_length = encryption_oracle_12(chosen_plaintext, ciphertext, 43);
+  ciphertext_length = encryption_oracle_12((char *)chosen_plaintext, (char *)ciphertext, 43);
   //printf("ciphertext_length = %d\n", ciphertext_length);
-  block_size = guess_ecb_blocksize(ciphertext, ciphertext_length, NULL);
+  block_size = guess_ecb_blocksize((char *)ciphertext, ciphertext_length, NULL);
 
-  ciphertext_length = encryption_oracle_12(chosen_plaintext, ciphertext, block_size);
+  ciphertext_length = encryption_oracle_12((char *)chosen_plaintext, (char *)ciphertext, block_size);
   printf("guessed blocksize=%d\ntotal blocks=%d\n\n", block_size, ciphertext_length/block_size);
   /*
    * here's roughly how this works:
@@ -35,7 +35,7 @@ int main(void)
    */
 
   //printf("DEBUG: %d\n", ciphertext_length/block_size);
-  decrypt_counter = crack_ecb2(NULL, 0, block_size, decrypted, 0, ciphertext_length/block_size, 0);
+  decrypt_counter = crack_ecb2(NULL, 0, block_size, (char *)decrypted, 0, ciphertext_length/block_size, 0);
 
   printf("\ndecrypted=%d\n\n", decrypt_counter);
   dump(decrypted, decrypt_counter);
