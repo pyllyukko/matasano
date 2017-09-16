@@ -10,13 +10,9 @@ int main(void)
 {
   unsigned char
     ciphertext[1024], decrypted[256],
-    ciphertext_block[16], chosen_plaintext[64];
+    chosen_plaintext[64];
   int
-    i, j,
     ciphertext_length,
-    blockpos,
-    bytepos,
-    hamming_distance,
     decrypt_counter,
     block_size;
 
