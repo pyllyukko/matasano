@@ -214,40 +214,24 @@ int encryption_oracle_12(char *plaintext, char *ciphertext, int length)
   key = (unsigned char *)&oracles_key;
 
   // create the key if not done already
-  //if(memcmp(oracles_key, "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 16)==0)
   if(!oracles_key_initialized)
   {
     randomize_key(oracles_key, 16);
-    //memset(oracles_key, 'A', 16);
     oracles_key_initialized=1;
   }
 
-  /*
-  for(i=0; i<length; i++)
-  {
-    *(plaintext2+i) = *(plaintext+i);
-    //printf("encryption_oracle_12(): chosen plaintext=%.2x\n", *(plaintext2+i));
-  }
-  */
   memcpy(plaintext2, plaintext, length);
-  //printf("encryption_oracle_12(): %d bytes\n", i);
 
   fp = fopen("./12.txt", "r");
-  //fp = fopen("./tanelin_viesti.txt", "r");
   if(fp == NULL)
   {
     perror("Error while opening the file.\n");
     exit(EXIT_FAILURE);
   }
-
-  //printf("encryption_oracle_12(): appending magic plaintext\n");
-  //printf("encryption_oracle_12(): DEBUG: sizeof(plaintext2)=%d\n", sizeof(plaintext2));
   j = base64_decode(fp, plaintext2+length, sizeof(plaintext2));
   fclose(fp);
 
-  //aes_encrypt_ecb(plaintext, ciphertext, length, (char *)key, 16);
   i = aes_encrypt_ecb(plaintext2, ciphertext, length+j, (char *)key, 16);
-  //printf("encryption_oracle_12(): plaintext length=%d with padding=%d\n", length+j, i);
 
   return i;
 } // encryption_oracle_12()
