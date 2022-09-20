@@ -7,6 +7,7 @@
 
 #define ANSI_COLOR_RED     "\x1b[1;31m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
+#define ANSI_COLOR_GREEN   "\x1b[1;32m"
 #define BUFFER_SIZE 1024
 
 char
@@ -31,11 +32,11 @@ int first_function(char *userdata, char *ciphertext)
     switch(*(userdata+i))
     {
       case ';':
-	printf("first_function(): illegal character '%c'!\n", *(userdata+i));
+	printf("[" ANSI_COLOR_RED "-" ANSI_COLOR_RESET "] first_function(): illegal character '%c'!\n", *(userdata+i));
 	*(userdata+i) = 'X';
 	break;
       case '=':
-	printf("first_function(): illegal character '%c'!\n", *(userdata+i));
+	printf("[" ANSI_COLOR_RED "-" ANSI_COLOR_RESET "] first_function(): illegal character '%c'!\n", *(userdata+i));
 	*(userdata+i) = 'X';
 	break;
     }
@@ -64,12 +65,12 @@ int is_admin(char *ptr, int length)
 
   if(strstr(decrypted, (char *)";admin=true;")==NULL)
   {
-    printf("is_admin(): you are not admin\n");
+    printf("[" ANSI_COLOR_RED "-" ANSI_COLOR_RESET "] is_admin(): you are not admin\n");
     return 0;
   }
   else
   {
-    printf("is_admin(): ADMIN=TRUE!!!\n");
+    printf("[" ANSI_COLOR_GREEN "+" ANSI_COLOR_RESET "] is_admin(): ADMIN=TRUE!!!\n");
     return 1;
   }
 }
@@ -85,22 +86,25 @@ int main(void)
   randomize_key(key, 16);
   randomize_key(iv,  16);
 
+  printf("--- [ first test ] ---\n");
   memset(userdata, 0, sizeof(userdata));
   strncpy(userdata, ";admin=true", strlen(";admin=true"));
   printf(ANSI_COLOR_RED "adversary: trying \"%s\":\n" ANSI_COLOR_RESET, userdata);
   length = first_function(userdata, ciphertext);
 
   strncpy(userdata, "XadminXtrue", strlen(";admin=true"));
-  printf(ANSI_COLOR_RED "adversary: trying \"%s\":\n" ANSI_COLOR_RESET, userdata);
+  printf("--- [ second test ] ---\n" ANSI_COLOR_RED "adversary: trying \"%s\":\n" ANSI_COLOR_RESET, userdata);
   length = first_function(userdata, ciphertext);
-  printf(ANSI_COLOR_RED "adversary: modifying ciphertext\n" ANSI_COLOR_RESET);
+
+  printf("--- [ third test ] ---\n" ANSI_COLOR_RED "adversary: modifying ciphertext\n" ANSI_COLOR_RESET);
   *(ciphertext+16) ^= 'X' ^ ';';
   *(ciphertext+22) ^= 'X' ^ '=';
   printf("\n\nciphertext:\n");
   dump(ciphertext, length);
 
+  printf("--- [ result ] ---\n");
   if(is_admin(ciphertext, length)) {
-    printf("great success!\n");
+    printf(ANSI_COLOR_GREEN "great success!" ANSI_COLOR_RESET "\n");
     ret = 0;
   }
   return ret;
