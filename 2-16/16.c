@@ -7,15 +7,16 @@
 
 #define ANSI_COLOR_RED     "\x1b[1;31m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
+#define BUFFER_SIZE 1024
 
 char
-  ciphertext[1024],
+  ciphertext[BUFFER_SIZE+16],
   key[16],
   iv[16];
 
 int first_function(char *userdata, char *ciphertext)
 {
-  char userdata2[1024];
+  char userdata2[BUFFER_SIZE];
   int i, length, userdatalength;
   userdatalength = strlen(userdata);
 
@@ -76,7 +77,7 @@ int is_admin(char *ptr, int length)
 int main(void)
 {
   char
-    userdata[1024];
+    userdata[BUFFER_SIZE];
   int
     length,
     ret = 1;
