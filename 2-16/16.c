@@ -1,3 +1,5 @@
+// https://www.cryptopals.com/sets/2/challenges/16
+
 #include <stdio.h>
 #include <string.h>
 #include "../lib/libkrypto.h"
@@ -14,10 +16,16 @@ char
 int first_function(char *userdata, char *ciphertext)
 {
   char userdata2[1024];
-  int i, length;
+  int i, length, userdatalength;
+  userdatalength = strlen(userdata);
+
+  if(userdatalength>sizeof(userdata2)) {
+    printf("[-] too much user data\n");
+    return 1;
+  }
 
   // input validation :)
-  for(i=0; i<strlen(userdata); i++)
+  for(i=0; i<userdatalength; i++)
   {
     switch(*(userdata+i))
     {
@@ -37,7 +45,7 @@ int first_function(char *userdata, char *ciphertext)
   // prepend
   strncpy(userdata2, (char *)"comment1=cooking%20MCs;userdata=", strlen("comment1=cooking%20MCs;userdata="));
   // user input
-  strncat(userdata2, userdata, strlen(userdata));
+  strncat(userdata2, userdata, userdatalength);
   // append
   strncat(userdata2, (char *)";comment2=%20like%20a%20pound%20of%20bacon", strlen(";comment2=%20like%20a%20pound%20of%20bacon"));
 
