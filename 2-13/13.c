@@ -257,6 +257,7 @@ int main(void)
   printf("<ADVERSARY>\n");
   profile = profile_for((char *)"foo@bar.coadmin");
   ciphertext_length = aes_encrypt_ecb(profile, encrypted_profile, 38, (char *)key, 16);
+  free(profile);
   memcpy(ciphertext_block, encrypted_profile+16, 16);
   profile = profile_for("foo12@bar.com");
   //ciphertext_length = aes_encrypt_ecb(profile, encrypted_profile, 50, (char *)key, 16);
