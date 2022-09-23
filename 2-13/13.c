@@ -56,8 +56,6 @@ char *profile_for(char *email)
     printf("ERROR: malloc()\n");
     return -1;
   }
-  //strncpy(profile, (char *)"email=", strlen("email="));
-  //strncat(profile, (char *)"email=", strlen("email="));
 
   printf("profile_for():\n  memory allocated=%d\n  email=%s\n", i, email);
   memcpy(profile, (char *)"email=", 6);
@@ -83,11 +81,7 @@ char *profile_for(char *email)
     }
     *(profile+6+i) = *(email+i);
   }
-  //strncat(profile+strlen("email="), email, strlen(email));
-  //strncat(profile+strlen("email="), email, strlen(email));
   strncpy(profile+strlen("email=")+strlen(email), (char *)"&uid=10&role=user", strlen("&uid=10&role=user"));
-
-  //dump(profile, 50);
 
   return profile;
 }
@@ -98,121 +92,41 @@ int parse(char *ptr)
     *token,
     *ptr2,
     *ptr3,
-    /*
-    *token2,
-    *rightside,
-    *leftside,
-    */
     key[128],
     value[128];
   int length;
 
   length = strlen(ptr);
   ptr2 = (char *)malloc(length+1);
-  /*
-  printf("memory from malloc():\n");
-  dump(ptr2, 50);
-  printf("\n");
-  */
+
   if(ptr2==NULL)
   {
     printf("ERROR: malloc()\n");
     return -1;
   }
   strncpy(ptr2, ptr, length);
-  //dump(ptr2, 50);
-
-
-  // TEST
-
-  /*
-  ptr3 = malloc(50000);
-  if(ptr3==NULL)
-  {
-    printf("ERROR: malloc()\n");
-    return -1;
-  }
-  free(ptr3);
-  */
-
+  // store ptr2 into ptr3 so we can free it later (as strtok requires making ptr2 -> NULL)
+  ptr3 = ptr2;
   printf("parse(): string=\"%s\"\n  length=%d\n", ptr2, length);
 
-  //printf("DEBUG: ptr2 before=%d\n", ptr2);
-  token = strtok(ptr2, "&");
-  //printf("DEBUG: ptr2 after=%d\n", ptr2);
-
-  printf("  strok(): %s\n", token);
-
-  sscanf(token, "%[^=]=%[^=]", key, value);
-  printf("    key\t\t= %s\n", key);
-  printf("    value\t= %s\n", value);
-
-  /*
-   * strtok() sucks! it replaces the delimeter with NULLs.
-   *
-   * maybe we should copy the whole string to our own buffer and process that,
-   * or then just use sscanf for everything.
-   *
-   */
-
-  while( (token=strtok(NULL, "&")) != 0 )
+  while( (token=strtok(ptr2, "&")) != 0 )
   {
+    // In each subsequent call that should parse the same string, str should be NULL.
+    if(ptr2!=NULL) {
+      ptr2 = NULL;
+    }
     printf("  strok(): %s\n", token);
-
-    /*
-    leftside = strtok_r(token, "=", &rightside);
-    printf("    key\t\t= %s\n    value\t= %s\n", leftside, rightside);
-    */
 
     if(sscanf(token, "%[^=]=%[^=]", key, value)!=2)
     {
       printf("    WARNING: no key=value pair found!");
       continue;
     }
-    //printf("    sscanf()\t= %d\n", i);
     printf("    key\t\t= %s\n", key);
     printf("    value\t= %s\n", value);
-
-    /*
-    token2 = strtok(token, "=");
-    printf("    key\t\t= %s\n", token2);
-    token2 = strtok(NULL, "=");
-    printf("    value\t= %s\n", token2);
-    */
-
-    // In each subsequent call that should parse the same string, str should be NULL.
-
   }
 
-  /*
-   * WTF?!?
-   *
-   * *** glibc detected *** ./13: free(): invalid next size (fast): 0x0000000001e95700 ***
-   * ======= Backtrace: =========
-   * [0x42d022]
-   * [0x431b77]
-   * [0x4005a2]
-   * [0x400979]
-   * [0x4175ee]
-   * [0x400329]
-   * ======= Memory map: ========
-   * 00400000-004b6000 r-xp 00000000 fe:01 1314678                            /home/jk/private/matasano/13/13
-   * 006b5000-006c6000 rw-p 000b5000 fe:01 1314678                            /home/jk/private/matasano/13/13
-   * 006c6000-006c9000 rw-p 00000000 00:00 0 
-   * 01e93000-01eb6000 rw-p 00000000 00:00 0                                  [heap]
-   * 7fac7c000000-7fac7c021000 rw-p 00000000 00:00 0 
-   * 7fac7c021000-7fac80000000 ---p 00000000 00:00 0 
-   * 7fac82750000-7fac82751000 rw-p 00000000 00:00 0 
-   * 7fff6eb09000-7fff6eb1e000 rw-p 00000000 00:00 0                          [stack]
-   * 7fff6eba3000-7fff6eba4000 r-xp 00000000 00:00 0                          [vdso]
-   * ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
-   * Aborted
-   *
-   */
-
-  //free(ptr2);
-  //printf("DEBUG: ptr2=%d\n", ptr2);
-
+  free(ptr3);
   printf("\n\n");
 
   return length;
@@ -240,14 +154,9 @@ int main(void)
   printf("TEST ROUND two:\n\n");
   profile = profile_for(email);
   printf("\n");
-  //dump(profile, 50);
   parse(profile);
   free(profile);
   printf("\n// ------------------------------------------------------------\n\n");
-
-
-
-
 
   /*
    *
@@ -260,7 +169,6 @@ int main(void)
   free(profile);
   memcpy(ciphertext_block, encrypted_profile+16, 16);
   profile = profile_for("foo12@bar.com");
-  //ciphertext_length = aes_encrypt_ecb(profile, encrypted_profile, 50, (char *)key, 16);
   ciphertext_length = aes_encrypt_ecb(profile, encrypted_profile, 36, (char *)key, 16);
   // actual attack
 
@@ -269,7 +177,6 @@ int main(void)
   // insert the '^admin' block
   memcpy(encrypted_profile+32, ciphertext_block, 16);
   printf("</ADVERSARY>\n");
-
 
   i = aes_decrypt(encrypted_profile, decrypted, 16*4, key, 16);
 
@@ -284,17 +191,7 @@ int main(void)
 
   printf("decrypted:\n\n");
   dump(decrypted, i);
-
-  //printf("\nfull profile: %s\n", profile);
-
-  /*
-  profile_length = parse(profile);
-  dump(profile, profile_length);
-  */
-
   profile_length = parse(decrypted);
-  //profile_length = parse(decrypted);
-  dump(decrypted, profile_length);
 
   free(profile);
 
