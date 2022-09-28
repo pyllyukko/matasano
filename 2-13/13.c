@@ -29,11 +29,6 @@
  * 00000290  41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 | AAAAAAAAAAAAAAAA
  * 000002a0  41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 41 | AAAAAAAAAAAAAAAA
  *
- *
- *
- * TODO:
- *   - use strdup
- *
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -97,14 +92,13 @@ int parse(char *ptr)
   int length;
 
   length = strlen(ptr);
-  ptr2 = (char *)malloc(length+1);
+  ptr2 = strndup(ptr, length);
 
   if(ptr2==NULL)
   {
     printf("ERROR: malloc()\n");
     return -1;
   }
-  strncpy(ptr2, ptr, length);
   // store ptr2 into ptr3 so we can free it later (as strtok requires making ptr2 -> NULL)
   ptr3 = ptr2;
   printf("parse(): string=\"%s\"\n  length=%d\n", ptr2, length);
