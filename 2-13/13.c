@@ -49,7 +49,7 @@ char *profile_for(char *email)
   if(profile==NULL)
   {
     printf("ERROR: malloc()\n");
-    return -1;
+    return NULL;
   }
 
   printf("profile_for():\n  memory allocated=%d\n  email=%s\n", i, email);
